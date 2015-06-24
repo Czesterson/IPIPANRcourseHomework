@@ -1,0 +1,16 @@
+{
+    "contents" : "#include <Rcpp.h>\n#include <iostream>\nusing namespace Rcpp;\nusing namespace std;\n\n//' @title Mimics built-in simplify2array function.\n//' @description This function behaves as most similar\n//' to simplify2array as possible.\n//' If list contains vectors of length 1, returns vector.\n//' If list contains vectors of the same length, returns matrix.\n//' Otherwise returns not changed List.\n//'\n//' @param L - List of numeric vectors to convert\n//' @param higher (optional) - not used in this implementation\n//' @return - matrix, vector or list\n//'\n//' @export\n// [[Rcpp::export]]\nSEXP simplify2array2(const List L, bool higher = true)\n{\n    if (L.size() == 0)\n        stop(\"List shall have at least one element\");\n    for (int i=0; i<L.size(); i++)\n        if (!Rf_isNumeric(L[i]) || !Rf_isVectorAtomic(L[i]))\n            stop(\"List shall contain numeric vectors!\");\n    NumericVector L2[L.size()];\n    for (int i=0; i<L.size(); i++)\n    {\n        L2[i] = L[i];\n        // if vectors are of different length return L not changed\n        if (L2[i].size() != L2[0].size())\n            return L;\n    }\n\n    if (L2[0].size() == 1)\n    {\n        // all vectors of length 1 - return vector\n        NumericVector ret(L.size());\n        for (int i=0; i<L.size(); i++)\n            ret[i] = L2[i][0];\n        return ret;\n    }\n    \n    // otherwise return matrix\n    NumericMatrix ret(L2[0].size(), L.size());\n    for (int i=0; i<L.size(); i++)\n        for (int j=0; j<L2[i].size(); j++)\n            ret(j, i) = L2[i][j];\n    return ret;\n}\n",
+    "created" : 1435187914515.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3459702063",
+    "id" : "58AAEEB",
+    "lastKnownWriteTime" : 1435188987,
+    "path" : "~/Kursy/IpiPAN/R/8 - homework 6/IPIPANRcourseHomework/src/homework6_2.cpp",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "cpp"
+}

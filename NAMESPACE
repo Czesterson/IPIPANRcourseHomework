@@ -1,0 +1,3 @@
+useDynLib(IPIPANRcourseHomework)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)

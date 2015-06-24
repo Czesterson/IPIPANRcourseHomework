@@ -1,0 +1,16 @@
+{
+    "contents" : "#include <Rcpp.h>\n#include <algorithm>\nusing namespace Rcpp;\nusing namespace std;\n\nint C(int up, int down)\n{\n    // Calculates upCdown\n    int ret=1;\n    for(int i=(up-down)+1; i<=up; i++)\n        ret *= i;\n    for(int i=2; i<=down; i++)\n        ret /= i;\n    return ret;\n}\nint silna(int n)\n{\n    int ret=1;\n    for(int i=2;i<n; i++)\n        ret*=i;\n    return ret;\n}\n\n//' @title Generates all possible assignments of survey participants.\n//' @description This function generates all possible 0-1 assignment\n//' vectors of 2n survey participants in such a way that\n//' exactly n of them are assigned to group 0 (control)\n//' and the other n ones are assigned to group 1 (treatment).\n//'\n//' @param n - single integer - number of participants\n//' @return - matrix\n//'\n//' @export\n// [[Rcpp::export]]\nNumericMatrix ass(int n)\n{\n\tif (n <= 0)\n\t\tstop(\"n shall be greater than 0\");\n    int rows=C(2*n,n);\n    NumericMatrix ret(rows, 2*n);\n    int it=0;\n    int row[2*n];\n    for (int i=0;i<n;i++)\n        row[i]=0;\n    for (int i=n;i<2*n;i++)\n        row[i]=1;\n    do\n    {\n        for(int i=0;i<2*n;i++)\n            ret(it,i) = row[i];\n        it++;\n    } while ( std::next_permutation(row,row+2*n) && it<rows);\n    return ret;\n}\n\n",
+    "created" : 1435188047046.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3122155026",
+    "id" : "9F5AE05",
+    "lastKnownWriteTime" : 1435189314,
+    "path" : "~/Kursy/IpiPAN/R/8 - homework 6/IPIPANRcourseHomework/src/homework6_3.cpp",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "cpp"
+}

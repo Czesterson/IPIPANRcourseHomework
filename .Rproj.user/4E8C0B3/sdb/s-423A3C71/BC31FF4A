@@ -1,0 +1,16 @@
+{
+    "contents" : "#' @title Generates all possible assignments of survey participants.\n#' @description This function generates all possible 0-1 assignment\n#' vectors of 2n survey participants in such a way that\n#' exactly n of them are assigned to group 0 (control)\n#' and the other n ones are assigned to group 1 (treatment).\n#' This is R reference function for benchmark tests.\n#'\n#' @param n - single integer - number of participants\n#' @return - matrix\n#' @export\nass2 <- function(n)\n{\n\t# just reuse my function from 2nd homework :)\n\tinternal_perm <- function(x)\n\t{\n\t\t# stop of recursion - single element\n\t\tif (length(x) == 1)\n        \treturn (matrix(x, nrow = 1, ncol = 1))\n\n\t    # recursion, generate permutation of matrix withouy first column\n    \tpartial_perm <- internal_perm(x[-1])\n\n\t    # add new element for each permutation in each column\n    \tk <- ncol(partial_perm)\n\t    ret_matrix <- NULL\n    \tfor (i in 0:k)\n\t    {\n    \t    # take left i columns and add to them new column with new value\n        \tnew_perms <- cbind(partial_perm[,0:i], rep(x[1], nrow(partial_perm)))\n\t        # and add to result right (k-i) columns\n    \t    if(i < k)\n        \t{\n            \tnew_perms <- cbind(new_perms, partial_perm[,(i+1):k])\n\t        }\n\n    \t    # add to premutations generated in for por lower 'i'\n        \tret_matrix <- rbind(ret_matrix, new_perms)\n    \t}\n\n \t   return(ret_matrix)\n\t}\n\n\tn <- as.integer(n)\n    stopifnot(1 == length(n), n > 0)\n    to_permute <- c(rep(0,n), rep(1,n))\n    # generate all permutations\n    all_perms <- internal_perm(to_permute)\n\t# sort them\n#\tall_perms <- all_perms[do.call(order,as.data.frame(all_perms)),]\n    # add fake 0 row\n#    all_perms <- rbind(rep(0,2*n), all_perms)\n#    ret_matrix <- NULL\n\n#    for (i in 2:nrow(all_perms))\n#       if(any(all_perms[i-1,]!=all_perms[i,]))\n#           ret_matrix <- rbind(ret_matrix, all_perms[i,])\n\tret_matrix <- unique(all_perms)\n    ret_matrix\n}\n",
+    "created" : 1435187959890.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3487610582",
+    "id" : "BC31FF4A",
+    "lastKnownWriteTime" : 1435189304,
+    "path" : "~/Kursy/IpiPAN/R/8 - homework 6/IPIPANRcourseHomework/R/homework6_3.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

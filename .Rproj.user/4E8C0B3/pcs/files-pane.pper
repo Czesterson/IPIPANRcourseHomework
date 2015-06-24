@@ -1,0 +1,13 @@
+{
+    "path" : "~/Kursy/IpiPAN/R/8 - homework 6/IPIPANRcourseHomework/tests",
+    "sortOrder" : [
+        {
+            "ascending" : false,
+            "columnIndex" : 1
+        },
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

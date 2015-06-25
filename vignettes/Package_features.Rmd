@@ -1,0 +1,56 @@
+# Homerwork 6th feaures #
+
+This documents shows functions created for 6th homework of IPI PAN Advanced R course.
+
+## Exercise 06.01 - mode
+This function calculates the most frequently occurring value in an integer vector (mode).
+If the mode is ambiguous returns the lowest mode.
+Please note that "mode" overrides mode function from base package.
+
+  * mode - Rcpp function
+  * mode2 - function written in R for reference
+
+```{r}
+mode(c(5,4,4,5,4,4,6))
+```
+```{r}
+mode(c(4,3,4,3,4,3))
+```
+```{r, results='asis', echo=FALSE}
+cat("\\newpage")
+``` 
+
+## Exercise 06.02 - simplify2array2
+This function behaves as most similar to simplify2array as possible for numeric vectors list.
+If list contains vectors of length 1, returns vector.
+If list contains vectors of the same length, returns matrix.
+Otherwise returns not changed list.
+
+  * simplify2array2 - Rcpp function
+  * simplify2array - function from R base
+
+```{r}
+simplify2array2(list(c(4), c(3), c(-19)))
+```
+```{r}
+simplify2array2(list(4:10, 14:20, 20:26))
+```
+```{r}
+simplify2array2(list(4:6, 17:20, 20:26))
+```
+```{r, results='asis', echo=FALSE}
+cat("\\newpage")
+``` 
+
+## Exercise 06.03 - ass
+This function generates all possible 0-1 assignment vectors of 2n survey participants in such a way that exactly n of them are assigned to group 0 (control) and the other n ones are assigned to group 1 (treatment).
+
+  * ass - Rcpp function
+  * ass2 - function written in R for reference
+
+```{r}
+ass(2)
+```
+```{r}
+ass(3)
+```

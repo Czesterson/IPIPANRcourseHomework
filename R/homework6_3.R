@@ -45,15 +45,6 @@ ass2 <- function(n)
     to_permute <- c(rep(0,n), rep(1,n))
     # generate all permutations
     all_perms <- internal_perm(to_permute)
-	# sort them
-#	all_perms <- all_perms[do.call(order,as.data.frame(all_perms)),]
-    # add fake 0 row
-#    all_perms <- rbind(rep(0,2*n), all_perms)
-#    ret_matrix <- NULL
-
-#    for (i in 2:nrow(all_perms))
-#       if(any(all_perms[i-1,]!=all_perms[i,]))
-#           ret_matrix <- rbind(ret_matrix, all_perms[i,])
 	ret_matrix <- unique(all_perms)
     ret_matrix
 }

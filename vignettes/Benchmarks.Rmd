@@ -1,0 +1,67 @@
+# Homerwork 6th benchmarks #
+
+This documents shows benchmarks of functions created for 6th homework of IPI PAN Advanced R course.
+
+## Exercise 06.01 - mode
+Mode is the most frequently occurring value in an integer vector
+
+  * mode - Rcpp function
+  * mode2 - function written in R for reference
+
+```{r}
+x<-as.integer(runif(100)*100)
+microbenchmark(mode(x), mode2(x))
+```
+```{r}
+x<-as.integer(runif(10000)*100)
+microbenchmark(mode(x), mode2(x))
+```
+```{r}
+x<-as.integer(runif(100000)*10000)
+microbenchmark(mode(x), mode2(x))
+```
+
+As we can see, Rcp is faster than R, but difference is smaller and smaller when data size grows.
+
+## Exercise 06.02 - simplify2array2
+This function converts list into matrix if possible.
+
+  * simplify2array2 - Rcpp function
+  * simplify2array - function from R base
+
+```{r}
+L<-list()
+for (i in 1:10) L[[i]]<-as.integer(runif(10)*100)
+microbenchmark(simplify2array2(L), simplify2array(L))
+```
+```{r}
+L<-list()
+for (i in 1:100) L[[i]]<-as.integer(runif(100)*100)
+microbenchmark(simplify2array2(L), simplify2array(L))
+```
+```{r}
+L<-list()
+for (i in 1:1000) L[[i]]<-as.integer(runif(1000)*100)
+microbenchmark(simplify2array2(L), simplify2array(L))
+```
+
+For this function, Rcpp i faster only for small lists. For lists with about 10000 elements times are similar, for more elements base R function is faster. This happens because Rcpp solution is just iterating through vectors from beginning to end while R is optimized to operations on whole vector at the same time.
+
+## Exercise 06.03 - ass
+This function generates all possible assignments of survey participants.
+
+  * ass - Rcpp function
+  * ass2 - function written in R for reference
+
+```{r}
+microbenchmark(ass(1), ass2(1))
+```
+```{r}
+microbenchmark(ass(2), ass2(2))
+```
+```{r}
+microbenchmark(ass(3), ass2(3))
+```
+
+As we can see, Rcpp function is O(log(n)), while R function is O(n). This happens because this Rcpp function uses STL algorithm which is highly optimized, while R uses own permutation function written in R.
+
